@@ -149,8 +149,9 @@ static ssize_t ccistuff_show_crashflag(struct device *dev, struct device_attribu
 #endif
 	}
 	rc = __raw_readl(WDT0_EN);
+#ifdef CONFIG_CCI_KLOG
 	printk("%s():crashflag=0x%08x, unknownrebootflag=0x%08x, *unknownreboot = 0x%08x, rc = 0x%08x\n", __func__, crashflag,unknownrebootflag,*unknownreboot,rc);
-
+#endif
 	return sprintf(buf, "0x%08x\n", crashflag);
 }
 #ifdef CCI_KLOG_ALLOW_FORCE_PANIC	

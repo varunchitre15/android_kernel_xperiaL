@@ -266,12 +266,14 @@ void msm_restart(char mode, const char *cmd)
 	if(in_panic)
 	{
 		set_warmboot();
+#ifdef CONFIG_CCI_KLOG
 #ifdef CCI_KLOG_ALLOW_FORCE_PANIC			
 			__raw_writel(CONFIG_WARMBOOT_CRASH, restart_reason);
 #else
 			__raw_writel(CONFIG_WARMBOOT_NORMAL, restart_reason);
 			*backupcrashflag = CONFIG_WARMBOOT_CRASH;
 #endif	
+#endif
 	}
 	/* Write download mode flags if restart_mode says so */
 	if (restart_mode == RESTART_DLOAD)
@@ -427,12 +429,14 @@ void msm_restart(char mode, const char *cmd)
 		if(in_panic)
 		{
 			set_warmboot();
+#ifdef CONFIG_CCI_KLOG
 #ifdef CCI_KLOG_ALLOW_FORCE_PANIC			
 			__raw_writel(CONFIG_WARMBOOT_CRASH, restart_reason);
 #else
 			__raw_writel(CONFIG_WARMBOOT_NORMAL, restart_reason);
 			*backupcrashflag = CONFIG_WARMBOOT_CRASH;
 #endif			
+#endif
 		}
 
 		if (restart_mode == RESTART_DLOAD)

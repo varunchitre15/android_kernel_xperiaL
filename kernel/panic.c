@@ -111,12 +111,14 @@ void panic(const char *fmt, ...)
 #endif	
 
 		set_warmboot();
+#ifdef CONFIG_CCI_KLOG
 #ifdef CCI_KLOG_ALLOW_FORCE_PANIC			
 		__raw_writel(CONFIG_WARMBOOT_CRASH, restart_reason);
 #else
 	__raw_writel(CONFIG_WARMBOOT_NORMAL, restart_reason);
 	*backupcrashflag = CONFIG_WARMBOOT_CRASH;
 #endif			
+#endif
 	/*
 	 * Disable local interrupts. This will prevent panic_smp_self_stop
 	 * from deadlocking the first cpu that invokes the panic, since
